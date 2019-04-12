@@ -44,6 +44,17 @@ flutter:
   assets:
         - assets/artworks/
 
+  fonts:
+      - family: Aller
+        fonts:
+          - asset: assets/fonts/aller/Aller_Std_Bd.ttf
+          - asset: assets/fonts/aller/Aller_Std_Bdlt.ttf
+          - asset: assets/fonts/aller/Aller_Std_lt.ttf
+          - asset: assets/fonts/aller/Aller_Std_Lt.ttf
+          - asset: assets/fonts/aller/Aller_Std_Ltit.ttf
+          - asset: assets/fonts/aller/Aller_Std_Rg.ttf
+          - asset: assets/fonts/aller/AllerDisplay_Std_Rg.ttf
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

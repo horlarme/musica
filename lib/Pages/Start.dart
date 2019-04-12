@@ -1,8 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:musicau/Bars/Main.dart';
 import 'package:musicau/Config/App.dart';
+import 'package:musicau/Pages/Start/Albums.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
     _tab("Artists", icon: Icons.person),
   ];
 
-  TabController _tabController;
+  TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,14 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
       backgroundColor: Colors.transparent,
       body: CustomScrollView(slivers: <Widget>[
         main(tab: tabBar()),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              Container(height: 400, color: Colors.green,),
-              Container(height: 400, color: Colors.blue,)
+        new SliverFillRemaining(
+          child: TabBarView(
+            children: [
+              Albums(),
+              Albums(),
+              Albums(),
             ],
+            controller: tabController,
           ),
         ),
       ]),
@@ -37,18 +39,19 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
   }
 
   TabBar tabBar() => TabBar(
-        indicatorColor: backgroundColor,
-        unselectedLabelColor: backgroundColor,
+        indicatorColor: color,
+        unselectedLabelColor: color,
+        labelColor: color,
         labelStyle: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1),
         tabs: _tabs,
-        controller: _tabController,
+        controller: tabController,
       );
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    tabController = TabController(length: _tabs.length, vsync: this);
   }
 }
 

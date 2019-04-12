@@ -15,7 +15,7 @@ Widget main({TabBar tab}) {
       Icons.menu,
       color: color,
     ),
-    backgroundColor: Colors.transparent.withOpacity(0.4),
+    backgroundColor: Colors.transparent.withOpacity(0.9),
     expandedHeight: 200.0,
     elevation: 4,
     pinned: true,
