@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:musicau/Bars/Main.dart';
 import 'package:musicau/Config/App.dart';
@@ -22,19 +23,15 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: CustomScrollView(slivers: <Widget>[
-        main(tab: tabBar()),
-        new SliverFillRemaining(
-          child: TabBarView(
-            children: [
-              Albums(),
-              Albums(),
-              Albums(),
-            ],
-            controller: tabController,
-          ),
-        ),
-      ]),
+      appBar: main(tab: tabBar()),
+      body: TabBarView(
+        children: [
+          Albums(),
+          Albums(),
+          Albums(),
+        ],
+        controller: tabController,
+      ),
     );
   }
 
@@ -42,7 +39,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
         indicatorColor: color,
         unselectedLabelColor: color,
         labelColor: color,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1,fontFamily: "Aller"),
+        labelStyle: TextStyle(letterSpacing: 1, fontFamily: "Aller"),
         tabs: _tabs,
         controller: tabController,
       );

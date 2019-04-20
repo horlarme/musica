@@ -2,27 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:musicau/Config/App.dart';
 
 Widget main({TabBar tab}) {
-  return SliverAppBar(
+  return AppBar(
     title: Text(
       "My Music",
       style: TextStyle(
           color: color,
-          fontSize: 23,
-          fontFamily: "AllerDisplay",
-          fontWeight: FontWeight.bold),
+          fontFamily: "AllerDisplay"),
     ),
     leading: Icon(
       Icons.menu,
       color: color,
     ),
     backgroundColor: Colors.transparent.withOpacity(0.9),
-    expandedHeight: 200.0,
     elevation: 4,
     centerTitle: true ,
-    pinned: true,
-    flexibleSpace: FlexibleSpaceBar(
-      background: Image.asset("assets/artworks/netnaija.jpg", fit: BoxFit.cover,),
-    ),
     bottom: tab,
     actions: [
       Padding(
@@ -32,9 +25,5 @@ Widget main({TabBar tab}) {
             color: color,
           ))
     ],
-//    flexibleSpace: FlexibleSpaceBar(
-//      background:
-//          Image.asset('assets/artworks/mixtapes.ng.jpg', fit: BoxFit.cover),
-//    ),
   );
 }
