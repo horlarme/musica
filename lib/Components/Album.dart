@@ -33,6 +33,8 @@ class Album extends StatelessWidget {
       child: Card(
         color: Colors.transparent,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
                 margin: EdgeInsets.only(top: 15),
