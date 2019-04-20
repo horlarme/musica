@@ -42,7 +42,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
         indicatorColor: color,
         unselectedLabelColor: color,
         labelColor: color,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1),
+        labelStyle: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1,fontFamily: "Aller"),
         tabs: _tabs,
         controller: tabController,
       );

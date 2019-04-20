@@ -8,7 +8,7 @@ Widget main({TabBar tab}) {
       style: TextStyle(
           color: color,
           fontSize: 23,
-          fontFamily: "Poppins",
+          fontFamily: "AllerDisplay",
           fontWeight: FontWeight.bold),
     ),
     leading: Icon(
@@ -18,6 +18,7 @@ Widget main({TabBar tab}) {
     backgroundColor: Colors.transparent.withOpacity(0.9),
     expandedHeight: 200.0,
     elevation: 4,
+    centerTitle: true ,
     pinned: true,
     flexibleSpace: FlexibleSpaceBar(
       background: Image.asset("assets/artworks/netnaija.jpg", fit: BoxFit.cover,),
