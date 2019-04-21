@@ -1,11 +1,17 @@
 import 'dart:ui';
 
+import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Bars/Main.dart';
 import 'package:musicau/Config/App.dart';
 import 'package:musicau/Pages/Start/Albums.dart';
 
 class Start extends StatefulWidget {
+
+  List<Song>songs;
+
+  Start({Key key, this.songs});
+
   @override
   _Start createState() => _Start();
 }
@@ -26,7 +32,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
       appBar: main(tab: tabBar()),
       body: TabBarView(
         children: [
-          Albums(),
+          Albums(songs: widget.songs),
           Albums(),
           Albums(),
         ],

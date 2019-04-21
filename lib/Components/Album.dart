@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:musicau/Config/colors.dart';
@@ -37,36 +39,37 @@ class Album extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                margin: EdgeInsets.only(top: 15),
                 height: 90,
                 width: 90,
                 decoration: BoxDecoration(
                     border: Border.all(width: 5, color: Colors.white),
                     borderRadius: BorderRadius.circular(100),
                     image: DecorationImage(
-                        image: AssetImage(this.artwork != null
-                            ? this.artwork
-                            : "assets/artworks/TalkmuzikDotCom.jpg")))),
+                        image: AssetImage("assets/artworks/TalkmuzikDotCom.jpg"))),
+                child: this.artwork != null ? Stack(children: <Widget>[
+                  ClipOval(
+                      child: Image.file(File(this.artwork),
+                        fit: BoxFit.cover,
+                      )),
+                ]) : null),
             Container(
-                margin: EdgeInsets.only(top: 10, bottom: 2, left: 10, right: 10),
+                margin: EdgeInsets.only(top: 10, bottom: 2, left: 5, right: 5),
                 child: Text(
                   this.title,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.fade,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
                       fontFamily: "AllerDisplay",
-                      letterSpacing: 1,
                       color: Colors.white),
                 )),
             Container(
-                margin: EdgeInsets.only(top: 0, bottom: 5, left: 10, right: 10),
+                margin: EdgeInsets.only(top: 0,left: 10, right: 10),
                 child: Text(
                   this.artist,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 12,
                       fontFamily: "AllerDisplay",
                       letterSpacing: 1,
                       color: backgroundColor.withOpacity(0.8)),
