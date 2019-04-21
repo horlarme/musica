@@ -1,27 +1,31 @@
 import 'dart:io';
 
+import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:musicau/Config/colors.dart';
 
-class Album extends StatelessWidget {
-  final String genre;
+class Album extends StatefulWidget {
+  final Song song;
 
-  final String artwork;
+  Album(this.song, {Key key});
 
-  final String artist;
+  @override
+  _Album createState() => _Album();
+}
 
-  final String year;
+class _Album extends State<Album> with TickerProviderStateMixin {
+  AnimationController rotationController;
 
-  final String title;
+  bool rotating = false;
 
-  Album(
-      {Key key,
-      @required this.title,
-      @required this.artist,
-      this.year,
-      this.artwork,
-      this.genre});
+  @override
+  initState() {
+    rotationController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 5000));
+
+    super.initState();
+  }
 
   @override
   build(BuildContext context) {
@@ -30,7 +34,7 @@ class Album extends StatelessWidget {
         print("Double Tap");
       },
       onTap: () {
-        print('Tapped');
+        _toggleRotation();
       },
       child: Card(
         color: Colors.transparent,
@@ -38,29 +42,33 @@ class Album extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-                height: 90,
-                width: 90,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 5, color: Colors.white),
-                    borderRadius: BorderRadius.circular(100),
-                    image: DecorationImage(
-                        image:
-                            AssetImage("assets/artworks/TalkmuzikDotCom.jpg"),
-                        fit: BoxFit.cover)),
-                child: this.artwork != null
-                    ? Stack(children: <Widget>[
-                        ClipOval(
-                            child: Image.file(
-                          File(this.artwork),
-                          fit: BoxFit.cover,
-                        )),
-                      ])
-                    : null),
+            RotationTransition(
+                turns: Tween(begin: 0.0, end: 1.0).animate(rotationController),
+                child: Container(
+                    height: 90,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 5, color: Colors.white),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Stack(
+                      fit: StackFit.expand,
+                        children: <Widget>[
+                      ClipOval(
+                          child: widget.song.albumArt != null
+                              ? Image.file(
+                                  File(widget.song.albumArt),
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  "assets/artworks/TalkmuzikDotCom.jpg",
+                                  fit: BoxFit.cover,
+                                )),
+                    ]))),
             Container(
                 margin: EdgeInsets.only(top: 10, bottom: 2, left: 5, right: 5),
                 child: Text(
-                  this.title,
+                  widget.song.title,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -71,7 +79,7 @@ class Album extends StatelessWidget {
             Container(
                 margin: EdgeInsets.only(top: 0, left: 10, right: 10),
                 child: Text(
-                  this.artist,
+                  widget.song.artist,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 12,
@@ -83,5 +91,23 @@ class Album extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _toggleRotation() {
+    setState(() {
+      rotating = !rotating;
+
+      if (rotating) {
+        rotationController.stop();
+      } else {
+        rotationController.repeat();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    rotationController.dispose();
+    super.dispose();
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Main extends StatelessWidget {
-  GlobalKey _mainDrawer = GlobalKey();
 
   @override
   build(BuildContext context) {

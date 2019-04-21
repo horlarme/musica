@@ -7,6 +7,7 @@ import 'package:musicau/Config/App.dart';
 import 'package:musicau/Drawers/Main.dart';
 import 'package:musicau/Pages/Start/Albums.dart';
 
+// ignore: must_be_immutable
 class Start extends StatefulWidget {
 
   List<Song>songs;

@@ -2,7 +2,6 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Components/Album.dart';
 import 'package:musicau/Helpers/Helper.dart';
-import 'package:musicau/main.dart';
 
 class Albums extends StatefulWidget {
   _Albums state;
@@ -30,10 +29,7 @@ class _Albums extends State<Albums> {
           (getOrientation(context) == Orientation.portrait) ? 1.0 : 1.3,
       children: widget.songs != null ?
       widget.songs.map(
-            (Song song) => Album(
-                title: song.title,
-                artist: song.artist,
-                artwork: song.albumArt),
+            (Song song) => Album(song),
           ).toList() : [],
     );
   }
