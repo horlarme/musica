@@ -26,10 +26,10 @@ class Album extends StatelessWidget {
   @override
   build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: (){
+      onDoubleTap: () {
         print("Double Tap");
       },
-      onTap: (){
+      onTap: () {
         print('Tapped');
       },
       child: Card(
@@ -45,13 +45,18 @@ class Album extends StatelessWidget {
                     border: Border.all(width: 5, color: Colors.white),
                     borderRadius: BorderRadius.circular(100),
                     image: DecorationImage(
-                        image: AssetImage("assets/artworks/TalkmuzikDotCom.jpg"))),
-                child: this.artwork != null ? Stack(children: <Widget>[
-                  ClipOval(
-                      child: Image.file(File(this.artwork),
-                        fit: BoxFit.cover,
-                      )),
-                ]) : null),
+                        image:
+                            AssetImage("assets/artworks/TalkmuzikDotCom.jpg"),
+                        fit: BoxFit.cover)),
+                child: this.artwork != null
+                    ? Stack(children: <Widget>[
+                        ClipOval(
+                            child: Image.file(
+                          File(this.artwork),
+                          fit: BoxFit.cover,
+                        )),
+                      ])
+                    : null),
             Container(
                 margin: EdgeInsets.only(top: 10, bottom: 2, left: 5, right: 5),
                 child: Text(
@@ -64,7 +69,7 @@ class Album extends StatelessWidget {
                       color: Colors.white),
                 )),
             Container(
-                margin: EdgeInsets.only(top: 0,left: 10, right: 10),
+                margin: EdgeInsets.only(top: 0, left: 10, right: 10),
                 child: Text(
                   this.artist,
                   textAlign: TextAlign.center,

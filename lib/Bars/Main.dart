@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musicau/Config/App.dart';
 
-Widget main({TabBar tab}) {
+Widget main({TabBar tab, Widget leading}) {
   return AppBar(
     title: Text(
       "My Music",
@@ -9,10 +9,7 @@ Widget main({TabBar tab}) {
           color: color,
           fontFamily: "AllerDisplay"),
     ),
-    leading: Icon(
-      Icons.menu,
-      color: color,
-    ),
+    leading: leading != null ? leading : null,
     backgroundColor: Colors.transparent.withOpacity(0.9),
     elevation: 4,
     centerTitle: true ,

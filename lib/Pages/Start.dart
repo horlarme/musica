@@ -4,6 +4,7 @@ import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Bars/Main.dart';
 import 'package:musicau/Config/App.dart';
+import 'package:musicau/Drawers/Main.dart';
 import 'package:musicau/Pages/Start/Albums.dart';
 
 class Start extends StatefulWidget {
@@ -25,11 +26,15 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
 
   TabController tabController;
 
+  GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
+      key: _globalKey,
       backgroundColor: Colors.transparent,
-      appBar: main(tab: tabBar()),
+      drawer: Main(),
+      appBar: main(tab: tabBar(), leading: drawerButton()),
       body: TabBarView(
         children: [
           Albums(songs: widget.songs),
@@ -55,6 +60,18 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
     super.initState();
 
     tabController = TabController(length: _tabs.length, vsync: this);
+  }
+
+  drawerButton() {
+    return IconButton(
+      icon: Icon(
+        Icons.menu,
+        color: color,
+      ),
+      onPressed: (){
+        _globalKey.currentState.openDrawer();
+      },
+    );
   }
 }
 
