@@ -34,7 +34,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
     return new Scaffold(
       key: _globalKey,
       backgroundColor: Colors.transparent,
-      drawer: Main(),
+      drawer: Main(songs: widget.songs),
       appBar: main(tab: tabBar(), leading: drawerButton()),
       body: TabBarView(
         children: [

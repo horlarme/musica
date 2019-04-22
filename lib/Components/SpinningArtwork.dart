@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class SpinningArtwork extends StatefulWidget {
   Song song;
 
-  bool playing = false;
+  bool playing;
 
-  SpinningArtwork(this.song, {Key key, this.playing}) : assert(song is Song);
+  SpinningArtwork(this.song, {Key key, this.playing = false}) : assert(song is Song);
 
   @override
   _SpinningArtwork createState() => _SpinningArtwork();
