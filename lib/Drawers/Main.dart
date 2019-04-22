@@ -29,37 +29,13 @@ class _Main extends State<Main> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  ListTile(title: Text("Text")),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
-                  ListTile(
-                    title: Text("Text"),
-                  ),
+                  menuItem("All Musics", leading: Icons.all_inclusive),
+                  menuItem("Albums", leading: Icons.album),
+                  menuItem("Artists", leading: Icons.perm_identity),
+                  menuItem("Genre", leading: Icons.graphic_eq),
+                  menuItem("Playlist", leading: Icons.featured_play_list),
+                  menuItem("Favourites", leading: Icons.favorite),
+                  menuItem("Settings", leading: Icons.settings_input_component),
                 ],
               ),
             )
@@ -79,13 +55,12 @@ class _Main extends State<Main> {
       setState(() {
         widget.song = widget.songs[randomNumber];
       });
-    } catch (e) {
-    }
+    } catch (e) {}
 
     super.didUpdateWidget(oldWidget);
   }
 
-  int get randomNumber{
+  int get randomNumber {
     var random = new Random();
     return random.nextInt(100);
   }
@@ -96,9 +71,17 @@ class _Main extends State<Main> {
       setState(() {
         widget.song = widget.songs[randomNumber];
       });
-    } catch (e) {
-    }
+    } catch (e) {}
 
     super.initState();
   }
+}
+
+Widget menuItem(title, {leading: Icons.keyboard_arrow_right}) {
+  return ListTile(
+    title: Text(title, style: TextStyle(
+      fontFamily: "Aller"
+    ),),
+    leading: Icon(leading),
+  );
 }
