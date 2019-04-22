@@ -19,14 +19,6 @@ class Start extends StatefulWidget {
 }
 
 class _Start extends State<Start> with SingleTickerProviderStateMixin {
-  List<Tab> _tabs = [
-    _tab("All", icon: Icons.play_circle_outline),
-    _tab("Albums", icon: Icons.album),
-    _tab("Artists", icon: Icons.person),
-  ];
-
-  TabController tabController;
-
   GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
 
   @override
@@ -35,32 +27,9 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
       key: _globalKey,
       backgroundColor: Colors.transparent,
       drawer: Main(songs: widget.songs),
-      appBar: main(tab: tabBar(), leading: drawerButton()),
-      body: TabBarView(
-        children: [
-          Albums(songs: widget.songs),
-          Albums(),
-          Albums(),
-        ],
-        controller: tabController,
-      ),
+      appBar: main(title: "", leading: drawerButton()),
+      body: Albums(songs: widget.songs)
     );
-  }
-
-  TabBar tabBar() => TabBar(
-        indicatorColor: color,
-        unselectedLabelColor: color,
-        labelColor: color,
-        labelStyle: TextStyle(letterSpacing: 1, fontFamily: "Aller"),
-        tabs: _tabs,
-        controller: tabController,
-      );
-
-  @override
-  void initState() {
-    super.initState();
-
-    tabController = TabController(length: _tabs.length, vsync: this);
   }
 
   drawerButton() {
@@ -74,12 +43,4 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
       },
     );
   }
-}
-
-Tab _tab(String tabTitle, {IconData icon = Icons.play_circle_outline}) {
-  return Tab(
-      icon: Icon(
-        icon,
-      ),
-      text: tabTitle);
 }

@@ -16,6 +16,9 @@ class Album extends StatefulWidget {
 }
 
 class _Album extends State<Album> {
+
+  get isAlbum => false;
+
   @override
   build(BuildContext context) {
     return GestureDetector(
@@ -57,7 +60,19 @@ class _Album extends State<Album> {
                       fontFamily: "AllerDisplay",
                       letterSpacing: 1,
                       color: backgroundColor.withOpacity(0.8)),
-                ))
+                )),
+            isAlbum ?
+            Container(
+                margin: EdgeInsets.only(top: 0, left: 10, right: 10),
+                child: Text(
+                  "Tracks: 30",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: "AllerDisplay",
+                      letterSpacing: 1,
+                      color: backgroundColor.withOpacity(0.8)),
+                )) : Container()
           ],
         ),
       ),
