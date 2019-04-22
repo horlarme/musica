@@ -1,16 +1,14 @@
-import 'dart:ui';
-
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Bars/Main.dart';
+import 'package:musicau/Components/MainBackground.dart';
 import 'package:musicau/Config/App.dart';
 import 'package:musicau/Drawers/Main.dart';
 import 'package:musicau/Pages/Start/Albums.dart';
 
 // ignore: must_be_immutable
 class Start extends StatefulWidget {
-
-  List<Song>songs;
+  List<Song> songs;
 
   Start({Key key, this.songs});
 
@@ -23,13 +21,13 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      key: _globalKey,
-      backgroundColor: Colors.transparent,
-      drawer: Main(songs: widget.songs),
-      appBar: main(title: "", leading: drawerButton()),
-      body: Albums(songs: widget.songs)
-    );
+    return MainBackground(
+        theChildWidget: Scaffold(
+            key: _globalKey,
+            backgroundColor: Colors.transparent,
+            drawer: Main(songs: widget.songs),
+            appBar: main(title: "All Albums", leading: drawerButton()),
+            body: Albums(songs: widget.songs)));
   }
 
   drawerButton() {
@@ -38,7 +36,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
         Icons.menu,
         color: color,
       ),
-      onPressed: (){
+      onPressed: () {
         _globalKey.currentState.openDrawer();
       },
     );

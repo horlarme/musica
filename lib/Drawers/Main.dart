@@ -20,28 +20,30 @@ class _Main extends State<Main> {
   build(BuildContext context) {
     if (widget.song is Song) {
       return Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            MainDrawerHeader(song: widget.song),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  menuItem("All Musics", leading: Icons.all_inclusive),
-                  menuItem("Albums", leading: Icons.album),
-                  menuItem("Artists", leading: Icons.perm_identity),
-                  menuItem("Genre", leading: Icons.graphic_eq),
-                  menuItem("Playlist", leading: Icons.featured_play_list),
-                  menuItem("Favourites", leading: Icons.favorite),
-                  menuItem("Settings", leading: Icons.settings_input_component),
+          child: Container(
+              color: Colors.black,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  MainDrawerHeader(song: widget.song),
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        menuItem("All Musics", "/albums", leading: Icons.all_inclusive),
+                        menuItem("Albums", "/albums", leading: Icons.album),
+                        menuItem("Artists", "/albums", leading: Icons.perm_identity),
+                        menuItem("Genre",  "/albums",leading: Icons.graphic_eq),
+                        menuItem("Playlist", "/albums", leading: Icons.featured_play_list),
+                        menuItem("Favourites", "/albums", leading: Icons.favorite),
+                        menuItem("Settings", "/albums",
+                            leading: Icons.settings_input_component),
+                      ],
+                    ),
+                  )
                 ],
-              ),
-            )
-          ],
-        ),
-      );
+              )));
     } else {
       return new Container();
     }
@@ -75,13 +77,17 @@ class _Main extends State<Main> {
 
     super.initState();
   }
-}
 
-Widget menuItem(title, {leading: Icons.keyboard_arrow_right}) {
-  return ListTile(
-    title: Text(title, style: TextStyle(
-      fontFamily: "Aller"
-    ),),
-    leading: Icon(leading),
-  );
+  Widget menuItem(String title, String route, {IconData leading: Icons.keyboard_arrow_right}) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(fontFamily: "Aller", color: Colors.white,),
+      ),
+      leading: Icon(leading, color: Colors.white,),
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+    );
+  }
 }

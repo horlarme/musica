@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Pages/Start.dart';
@@ -7,7 +8,6 @@ import 'package:simple_permissions/simple_permissions.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
   _MyApp state;
 
   @override
@@ -27,20 +27,11 @@ class _MyApp extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Aller'),
-      home: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/artworks/netnaija.jpg"),
-                fit: BoxFit.cover)),
-        child: new BackdropFilter(
-          filter: new ImageFilter.blur(sigmaX: 110.0, sigmaY: 30.0),
-          child: new Container(
-            decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
-            child: Start(songs: songList),
-          ),
-        ),
-//          scaffold()
-      ),
+      home: Start(songs: songList,),
+      routes: <String, WidgetBuilder>{
+        "/all": (BuildContext context) => Start(songs: songList,),
+        "/albums": (BuildContext context) => Start(songs: songList,),
+      },
     );
   }
 
