@@ -36,7 +36,7 @@ class _Start extends State<Start> with SingleTickerProviderStateMixin {
   }
 
   bottomNavigationBar() {
-    return (widget.songs = null)
+    return (widget.songs != null)
         ? LittleAction(playing: widget.songs[0])
         : Container(
       height: 0,
