@@ -6,20 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:musicau/Components/NowPlaying/Action.dart';
 import 'package:musicau/Components/SpinningArtwork.dart';
 
-class MainDrawerHeader extends StatefulWidget {
-  Song song;
+class MainDrawerHeader extends StatelessWidget {
+  final Song song;
 
   MainDrawerHeader({Key key, this.song});
-
-  @override
-  _MainDrawerHeader createState() => _MainDrawerHeader();
-}
-
-class _MainDrawerHeader extends State<MainDrawerHeader> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +19,9 @@ class _MainDrawerHeader extends State<MainDrawerHeader> {
         child: Stack(fit: StackFit.expand,
           children: <Widget>[
             Container(
-                child: widget.song.albumArt != null
+                child: this.song.albumArt != null
                     ? Image.file(
-                        File(widget.song.albumArt),
+                        File(this.song.albumArt),
                         fit: BoxFit.cover,
                       )
                     : Image.asset('assets/artworks/mixtapes.ng.jpg',
@@ -45,7 +35,7 @@ class _MainDrawerHeader extends State<MainDrawerHeader> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.all(10),
-                        child: SpinningArtwork(widget.song),
+                        child: SpinningArtwork(this.song),
                       ),
                       Expanded(
                         child: Column(
@@ -53,7 +43,7 @@ class _MainDrawerHeader extends State<MainDrawerHeader> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Text(
-                              widget.song.title,
+                              this.song.title,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "AllerDisplay",
@@ -61,7 +51,7 @@ class _MainDrawerHeader extends State<MainDrawerHeader> {
                                   fontSize: 20),
                             ),
                             Text(
-                              widget.song.artist,
+                              this.song.artist,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Aller",
@@ -86,10 +76,5 @@ class _MainDrawerHeader extends State<MainDrawerHeader> {
                 )),
           ],
         ));
-  }
-
-  @override
-  void didUpdateWidget(MainDrawerHeader oldWidget) {
-    super.didUpdateWidget(oldWidget);
   }
 }

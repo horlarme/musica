@@ -3,12 +3,17 @@ import 'dart:io';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SpinningArtwork extends StatefulWidget {
   Song song;
 
   bool playing;
 
-  SpinningArtwork(this.song, {Key key, this.playing = false}) : assert(song is Song);
+  String size;
+
+  SpinningArtwork(this.song,
+      {Key key, this.playing = false, this.size = 'large'})
+      : assert(song is Song);
 
   @override
   _SpinningArtwork createState() => _SpinningArtwork();
@@ -29,7 +34,7 @@ class _SpinningArtwork extends State<SpinningArtwork>
   @override
   void didUpdateWidget(SpinningArtwork oldWidget) {
     //decide on whether to spin or not
-    if (widget.playing) {
+    if (widget.playing && widget.size == "large") {
       rotationController.repeat();
     } else {
       rotationController.stop();
@@ -40,27 +45,27 @@ class _SpinningArtwork extends State<SpinningArtwork>
 
   @override
   Widget build(BuildContext context) {
-    return RotationTransition(
-        turns: Tween(begin: 0.0, end: 1.0).animate(rotationController),
-        child: Container(
-            height: 90,
-            width: 90,
-            decoration: BoxDecoration(
-              border: Border.all(width: 5, color: Colors.white),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Stack(fit: StackFit.expand, children: <Widget>[
-              ClipOval(
-                  child: widget.song.albumArt != null
-                      ? Image.file(
-                          File(widget.song.albumArt),
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
-                          "assets/artworks/TalkmuzikDotCom.jpg",
-                          fit: BoxFit.cover,
-                        )),
-            ])));
+    return Container(
+        height: widget.size == 'small' ? null : 90,
+        width: widget.size == 'small' ? null : 90,
+        decoration: BoxDecoration(
+          border: Border.all(
+              width: widget.size == 'small' ? 2 : 5, color: Colors.white),
+          borderRadius: BorderRadius.circular(1000),
+        ),
+        child: RotationTransition(
+          turns: Tween(begin: 0.0, end: 1.0).animate(rotationController),
+          child: ClipOval(
+              child: widget.song.albumArt != null
+                  ? Image.file(
+                      File(widget.song.albumArt),
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      "assets/artworks/TalkmuzikDotCom.jpg",
+                      fit: BoxFit.cover,
+                    )),
+        ));
   }
 
   @override

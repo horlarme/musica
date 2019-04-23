@@ -64,7 +64,7 @@ class _Main extends State<Main> {
 
   int get randomNumber {
     var random = new Random();
-    return random.nextInt(100);
+    return random.nextInt(20);
   }
 
   @override
@@ -86,6 +86,7 @@ class _Main extends State<Main> {
       ),
       leading: Icon(leading, color: Colors.white,),
       onTap: () {
+        Navigator.pop(context);
         Navigator.pushNamed(context, route);
       },
     );

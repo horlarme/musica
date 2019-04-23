@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musicau/Pages/Start.dart';
@@ -7,6 +5,7 @@ import 'package:simple_permissions/simple_permissions.dart';
 
 void main() => runApp(MyApp());
 
+// ignore: must_be_immutable
 class MyApp extends StatefulWidget {
   _MyApp state;
 
