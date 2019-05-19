@@ -1,73 +1,72 @@
-import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:musicau/Pages/Start.dart';
-import 'package:simple_permissions/simple_permissions.dart';
+import 'package:musicau/Redux/Actions/Actions.dart';
+import 'package:musicau/Redux/State/Musicau.dart';
+import 'package:musicau/Redux/Store/Store.dart' as ourStore;
+import 'package:redux/redux.dart';
 
-void main() => runApp(MyApp());
-
-// ignore: must_be_immutable
-class MyApp extends StatefulWidget {
-  _MyApp state;
-
-  @override
-  _MyApp createState() {
-    return state = _MyApp();
-  }
+void main() {
+  runApp(MyApp());
 }
 
-class _MyApp extends State<MyApp> {
-  MusicFinder player = new MusicFinder();
-
-  List<Song> songList;
-
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Aller'),
-      home: Start(songs: songList,),
-      routes: <String, WidgetBuilder>{
-        "/all": (BuildContext context) => Start(songs: songList,),
-        "/albums": (BuildContext context) => Start(songs: songList,),
-      },
-    );
-  }
+  _MyApp createState() => _MyApp();
+}
+
+class _MyApp extends State<MyApp> with WidgetsBindingObserver {
+  Store<Musicau> store = ourStore.store;
+
+  @override
+  Widget build(BuildContext context) => StoreProvider<dynamic>(
+      store: this.store,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Aller'),
+        home: Start(),
+        routes: <String, WidgetBuilder>{
+          "/all": (BuildContext context) => Start(),
+          "/albums": (BuildContext context) => Start(),
+        },
+      ));
 
   @override
   void initState() {
+    initializeMusicPlayPlugin();
+
     super.initState();
-
-    _getMusics();
+    WidgetsBinding.instance.addObserver(this);
   }
 
-  void _getMusics() async {
-    try {
-      await _requestPermission();
-      var allSongs = await MusicFinder.allSongs();
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
 
-      setState(() {
-        songList = allSongs;
-      });
-    } on Exception catch (e) {
-      print("Exception");
-      print(e);
-    }
+    //stopping music player
+    this.store.state.player.stop();
+
+    super.dispose();
   }
 
-  Future<PermissionStatus> _requestPermission() async {
-    PermissionStatus permissionStatus =
-        await SimplePermissions.getPermissionStatus(Permission.Camera);
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("Lifecycle changed: $state");
+  }
 
-    if (permissionStatus == PermissionStatus.denied ||
-        permissionStatus == PermissionStatus.notDetermined) {
-      permissionStatus =
-          await SimplePermissions.requestPermission(Permission.Camera);
-      await SimplePermissions.requestPermission(Permission.ReadExternalStorage);
-      await SimplePermissions.requestPermission(
-          Permission.WriteExternalStorage);
-    } else if (permissionStatus == PermissionStatus.deniedNeverAsk) {}
+  void initializeMusicPlayPlugin() {
+    Musicau state = store.state;
 
-    return permissionStatus;
+    state.player.setCompletionHandler(() {
+      store.dispatch(MusicCompleteAction(state.playing));
+    });
+
+    state.player.setDurationHandler((Duration duration) {
+      store.dispatch(MusicDurationAction(duration));
+    });
+
+    state.player.setPositionHandler((Duration position) {
+      store.dispatch(MusicCurrentPositionAction(position));
+    });
   }
 }

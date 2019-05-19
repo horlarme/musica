@@ -3,39 +3,51 @@ import 'dart:ui';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:musicau/Components/NowPlaying/Action.dart';
 import 'package:musicau/Components/SpinningArtwork.dart';
+import 'package:musicau/Redux/PlayMode.dart';
+import 'package:musicau/Redux/State/Musicau.dart';
+import 'package:redux/redux.dart';
 
 class MainDrawerHeader extends StatelessWidget {
-  final Song song;
+  buildWidget(Store<Musicau> store) {
+    Song music;
+    if (store.state.playing == 0 &&
+        store.state.prevMusic == 0 &&
+        store.state.playMode == PlayMode.STOP) {
+      music = new Song(
+          1, "Not Playing", "Not Playing", "Not Playing", 1, 12, "", "");
+    } else {
+      music = store.state.musics[store.state.playing];
+    }
 
-  MainDrawerHeader({Key key, this.song});
-
-  @override
-  Widget build(BuildContext context) {
     return DrawerHeader(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
-        child: Stack(fit: StackFit.expand,
+        child: Stack(
+          fit: StackFit.expand,
           children: <Widget>[
             Container(
-                child: this.song.albumArt != null
+                child: music.albumArt != null
                     ? Image.file(
-                        File(this.song.albumArt),
+                        File(music.albumArt),
                         fit: BoxFit.cover,
                       )
                     : Image.asset('assets/artworks/mixtapes.ng.jpg',
-                        fit: BoxFit.cover)),BackdropFilter(
+                        fit: BoxFit.cover)),
+            BackdropFilter(
                 filter: ImageFilter.blur(sigmaY: 7, sigmaX: 7),
                 child: new Container(
-                  decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                  decoration:
+                      new BoxDecoration(color: Colors.white.withOpacity(0.0)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.all(10),
-                        child: SpinningArtwork(this.song),
+                        child: SpinningArtwork(music),
                       ),
                       Expanded(
                         child: Column(
@@ -43,7 +55,9 @@ class MainDrawerHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Text(
-                              this.song.title,
+                              music.title,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "AllerDisplay",
@@ -51,7 +65,9 @@ class MainDrawerHeader extends StatelessWidget {
                                   fontSize: 20),
                             ),
                             Text(
-                              this.song.artist,
+                              music.artist,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Aller",
@@ -61,13 +77,13 @@ class MainDrawerHeader extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.zero,
                               margin: EdgeInsets.only(
-                                  left: 0, right: 15, top: 5, bottom: 5),
+                                  left: 0, right: 15, top: 5, bottom: 0),
                               child: LinearProgressIndicator(
                                 backgroundColor: Colors.white,
-                                value: 0.5,
+                                value: getProgressPosition(store),
                               ),
                             ),
-                            Action(),
+                            Action(action: store),
                           ],
                         ),
                       )
@@ -76,5 +92,16 @@ class MainDrawerHeader extends StatelessWidget {
                 )),
           ],
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector(
+        converter: (store) => store,
+        builder: (BuildContext context, dynamic store) => buildWidget(store));
+  }
+
+  getProgressPosition(Store<Musicau> store) {
+    return store.state.position / store.state.duration;
   }
 }
