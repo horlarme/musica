@@ -12,6 +12,7 @@ import 'package:musicau/Redux/Actions/AddMusic.dart';
 import 'package:musicau/Redux/PlayMode.dart';
 import 'package:redux/redux.dart';
 
+// ignore: must_be_immutable
 class Start extends StatelessWidget {
   GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
 
@@ -30,7 +31,7 @@ class Start extends StatelessWidget {
               key: _globalKey,
               backgroundColor: Colors.transparent,
               drawer: Main(),
-              appBar: main(title: "All Albums", leading: drawerButton()),
+              appBar: main(title: "All Musics", leading: drawerButton()),
               body: body(store),
               bottomNavigationBar: bottomNavigationBar(store),
             )));
