@@ -2,17 +2,23 @@ import 'dart:io';
 
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:flutter/material.dart';
+import 'package:musicau/Redux/PlayMode.dart';
 
 // ignore: must_be_immutable
 class SpinningArtwork extends StatefulWidget {
   Song song;
 
-  bool playing;
-
   String size;
 
+  int playing;
+
+  String mode;
+
   SpinningArtwork(this.song,
-      {Key key, this.playing = false, this.size = 'large'})
+      {Key key,
+      this.playing = 0,
+      this.size = 'large',
+      this.mode = PlayMode.PAUSE})
       : assert(song is Song);
 
   @override
@@ -34,7 +40,9 @@ class _SpinningArtwork extends State<SpinningArtwork>
   @override
   void didUpdateWidget(SpinningArtwork oldWidget) {
     //decide on whether to spin or not
-    if (widget.playing && widget.size == "large") {
+    if (widget.playing == widget.song.id &&
+        widget.size == "large" &&
+        widget.mode == PlayMode.PLAY) {
       rotationController.repeat();
     } else {
       rotationController.stop();
@@ -46,8 +54,8 @@ class _SpinningArtwork extends State<SpinningArtwork>
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: widget.size == 'small' ? null : 90,
-        width: widget.size == 'small' ? null : 90,
+        height: widget.size == 'small' ? 30 : 90,
+        width: widget.size == 'small' ? 30 : 90,
         decoration: BoxDecoration(
           border: Border.all(
               width: widget.size == 'small' ? 2 : 5, color: Colors.white),

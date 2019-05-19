@@ -25,8 +25,8 @@ class LittleAction extends StatelessWidget {
     if (store.state.playMode == PlayMode.PAUSE ||
         store.state.playMode == PlayMode.PLAY) {
       return Container(
-        height: 70,
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        height: 60,
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         margin: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.5),
@@ -53,28 +53,27 @@ class LittleAction extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: "AllerDisplay"),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "Aller"),
                             overflow: TextOverflow.ellipsis,
                           )),
                       Flexible(
                         flex: 1,
                         child: Container(
-                            margin: EdgeInsets.only(top: 10),
+                            margin: EdgeInsets.only(top: 0),
                             child: Text(
                                 store.state.musics[store.state.playing].artist,
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 11,
-                                    fontFamily: "AllerDisplay"))),
+                                    fontFamily: "Aller"))),
                       )
                     ],
                   ),
                 )),
-            Expanded(
-              child: Action(action: store),
-              flex: 4,
-            )
+            Action(action: store)
           ],
         ),
       );

@@ -5,8 +5,16 @@ import 'package:musicau/Redux/Actions/Actions.dart';
 import 'package:musicau/Redux/State/Musicau.dart';
 import 'package:musicau/Redux/Store/Store.dart' as ourStore;
 import 'package:redux/redux.dart';
+//import 'package:flutter_flipperkit/flutter_flipperkit.dart';
 
 void main() {
+//  FlipperClient flipperClient = FlipperClient.getDefault();
+
+//  flipperClient.addPlugin(new FlipperNetworkPlugin());
+//  flipperClient.addPlugin(new FlipperReduxInspectorPlugin());
+//  flipperClient.addPlugin(new FlipperSharedPreferencesPlugin());
+//  flipperClient.start();
+//
   runApp(MyApp());
 }
 
