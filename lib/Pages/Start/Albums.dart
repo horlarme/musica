@@ -12,15 +12,18 @@ class Albums extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector(
         converter: (store) => store.state,
-        builder: (BuildContext context, dynamic state) => GridView.count(
-            crossAxisCount:
-                (getOrientation(context) == Orientation.portrait) ? 2 : 3,
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-            padding: const EdgeInsets.all(4.0),
-            childAspectRatio:
-                (getOrientation(context) == Orientation.portrait) ? 1.0 : 1.3,
-            children: _buildAlbumList(state)));
+        builder: (BuildContext context, dynamic state) => Scrollbar(
+            child: GridView.count(
+                crossAxisCount:
+                    (getOrientation(context) == Orientation.portrait) ? 2 : 3,
+                mainAxisSpacing: 4.0,
+                crossAxisSpacing: 4.0,
+                padding: const EdgeInsets.all(4.0),
+                childAspectRatio:
+                    (getOrientation(context) == Orientation.portrait)
+                        ? 1.0
+                        : 1.3,
+                children: _buildAlbumList(state))));
   }
 
   _buildAlbumList(Musicau state) {

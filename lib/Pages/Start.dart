@@ -7,6 +7,7 @@ import 'package:musicau/Components/NowPlaying/LittleAction.dart';
 import 'package:musicau/Config/App.dart';
 import 'package:musicau/Drawers/Main.dart';
 import 'package:musicau/Library/MusicLoader.dart';
+import 'package:musicau/Library/Routes.dart';
 import 'package:musicau/Pages/Start/Albums.dart';
 import 'package:musicau/Redux/Actions/AddMusic.dart';
 import 'package:musicau/Redux/PlayMode.dart';
@@ -31,7 +32,8 @@ class Start extends StatelessWidget {
               key: _globalKey,
               backgroundColor: Colors.transparent,
               drawer: Main(),
-              appBar: main(title: "All Musics", leading: drawerButton()),
+              appBar:
+                  main(title: Routes.home['title'], leading: drawerButton()),
               body: body(store),
               bottomNavigationBar: bottomNavigationBar(store),
             )));

@@ -25,5 +25,9 @@ Musicau appReducer(state, action) {
     return action.handle(state);
   }
 
+  if (action is ChangeRouteAction) {
+    return action.handle(state);
+  }
+
   return state;
 }

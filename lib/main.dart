@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:musicau/Library/Routes.dart';
 import 'package:musicau/Pages/Start.dart';
 import 'package:musicau/Redux/Actions/Actions.dart';
 import 'package:musicau/Redux/State/Musicau.dart';
 import 'package:musicau/Redux/Store/Store.dart' as ourStore;
 import 'package:redux/redux.dart';
-//import 'package:flutter_flipperkit/flutter_flipperkit.dart';
 
 void main() {
-//  FlipperClient flipperClient = FlipperClient.getDefault();
-
-//  flipperClient.addPlugin(new FlipperNetworkPlugin());
-//  flipperClient.addPlugin(new FlipperReduxInspectorPlugin());
-//  flipperClient.addPlugin(new FlipperSharedPreferencesPlugin());
-//  flipperClient.start();
-//
   runApp(MyApp());
 }
 
@@ -34,8 +27,8 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         theme: ThemeData(fontFamily: 'Aller'),
         home: Start(),
         routes: <String, WidgetBuilder>{
-          "/all": (BuildContext context) => Start(),
-          "/albums": (BuildContext context) => Start(),
+          Routes.home['route']: (BuildContext context) => Start(),
+          Routes.albums['route']: (BuildContext context) => Start(),
         },
       ));
 

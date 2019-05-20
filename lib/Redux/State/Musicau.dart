@@ -1,10 +1,13 @@
 import 'package:flute_music_player/flute_music_player.dart';
+import 'package:musicau/Library/Routes.dart';
 import 'package:musicau/Redux/PlayMode.dart';
 
 class Musicau {
   int duration;
 
   int position;
+
+  String currentRoute = Routes.home['route'];
 
   Musicau(this.musics);
 
